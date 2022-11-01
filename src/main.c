@@ -6,7 +6,7 @@
 /*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:49:01 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/10/31 08:28:26 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/11/01 22:08:40 by suhovhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ int	main(int ac, char **av)
 	arg.philo_x = data;
 	set_mtx(&arg);
 	do_work(&arg);
-	free(arg.philo_x);
-	free(arg.mtx);
+	if (is_died(data) == -1)
+	{
+		free(arg.philo_x);
+		free(arg.mtx);
+	}
 	return (0);
 }

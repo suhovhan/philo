@@ -6,7 +6,7 @@
 /*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:49:01 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/10/28 00:27:35 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/10/31 08:28:26 by suhovhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int	main(int ac, char **av)
 {
-	t_main	arg;
-	t_philo	*data;
+	t_main		arg;
+	t_philo		*data;
+	unsigned	i;
 
+	i = 0;
 	if (checker(ac, av))
 	{
 		write(2, "Error: something is wrong!\n", 27);
@@ -41,14 +43,7 @@ int	main(int ac, char **av)
 		data->count_time_to_eat = 0;
 	arg.philo_x = data;
 	set_mtx(&arg);
-	for (unsigned i = 0; i < arg.number_of_philo; i++)
-			printf("philo %d id = %u\n", i, arg.philo_x[i].id);
-	//....ALL CODE HERE......
-
-	// pthread_create()
-
-	//....ALL CODE HERE......
-
+	do_work(&arg);
 	free(arg.philo_x);
 	free(arg.mtx);
 	return (0);

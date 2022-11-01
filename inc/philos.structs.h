@@ -6,7 +6,7 @@
 /*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:48:48 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/10/27 17:39:45 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/10/31 09:42:00 by suhovhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@
 
 typedef struct s_philo
 {
+	int	can_start;
 	unsigned		id;
 	unsigned long	time_to_die;
 	unsigned long	time_to_eat;
 	unsigned long	time_to_sleep;
 	unsigned long	count_time_to_eat;
 	pthread_t		philo;
-	pthread_mutex_t	left;
-	pthread_mutex_t	right;
+	pthread_mutex_t	*left;
+	pthread_mutex_t	*right;
 }				t_philo;
 
 

@@ -6,7 +6,7 @@
 /*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:48:51 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/10/28 00:27:42 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/10/31 07:51:15 by suhovhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ int				check_wrong_arguments(char **av);
 int				checker_is_nall(t_main arg, int ac);
 int				checker(int ac, char **av);
 int				error_and_exit();
-unsigned long	ft_atoi(char *str);
-void			*do_work(void *head);
+int				do_work(t_main *arg);
+int				ft_msleep(int mili_sec);
 int				set_mtx(t_main	*arg);
+unsigned long	ft_atoi(char *str);
+void			*algo_loop(void *head);
 t_main 			args_to_struct(char **av);
 
 #endif

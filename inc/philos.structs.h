@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philos.structs.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ergrigor < ergrigor@student.42yerevan.am > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:48:48 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/10/31 09:42:00 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/11/02 19:11:38 by ergrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct s_philo
 {
-	int	can_start;
+	int				died;
 	unsigned		id;
 	unsigned long	time_to_die;
 	unsigned long	time_to_eat;
@@ -27,7 +27,6 @@ typedef struct s_philo
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
 }				t_philo;
-
 
 typedef	struct s_main
 {
@@ -41,6 +40,5 @@ typedef	struct s_main
 	t_philo			*philo_x;
 	pthread_mutex_t *mtx;
 }				t_main;
-
 
 #endif

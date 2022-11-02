@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ergrigor < ergrigor@student.42yerevan.am > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:48:35 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/11/01 22:13:31 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/11/02 21:12:51 by ergrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	is_died(t_philo *data)
-{
-	while (1)
-	{
-		if ()
-			return (-1);
-	}
-}
 
 t_main args_to_struct(char **av)
 {
@@ -49,7 +40,6 @@ int	set_mtx(t_main	*arg)
 		arg->philo_id++;
 		arg->fork_index++;
 	}
-	// arg->philo_x[arg->philo_id].number_of_philo = arg->number_of_philo;
 	arg->philo_x[arg->philo_id].id = arg->philo_id + 1;
 	arg->philo_x[arg->philo_id].time_to_die = arg->time_to_die;
 	arg->philo_x[arg->philo_id].time_to_eat = arg->time_to_eat;
@@ -70,25 +60,13 @@ void	*algo_loop(void *head)
 	contenue_time = 0;
 	gettimeofday(&curent_time, NULL);
 	hungry_time = curent_time.tv_usec / 1000;
-	// usleep(10);
+	data->died = -1;
 	while (1)
 	{
-		gettimeofday(&curent_time, NULL);
-		if (curent_time.tv_usec / 1000 - hungry_time >= data->time_to_die)
-		{
-			printf("%lu %u is died!!!!!!\n", contenue_time, data->id);
-			break;
-		}
 		pthread_mutex_lock(data->left);
-		printf("%lu %u has taken a fork!\n", contenue_time, data->id);
-		gettimeofday(&curent_time, NULL);
-		if (curent_time.tv_usec / 1000 - hungry_time >= data->time_to_die)
-		{
-			printf("%lu %u is died!!!!!!\n", contenue_time, data->id);
-			break;
-		}
+		printf("%lu %u has taken a left fork!\n", contenue_time, data->id);
 		pthread_mutex_lock(data->right);
-		printf("%lu %u has taken a fork!\n", contenue_time, data->id);
+		printf("%lu %u has taken a right fork!\n", contenue_time, data->id);
 		printf("%lu %u is eating!\n", contenue_time, data->id);
 		ft_msleep(data->time_to_eat);
 		contenue_time += data->time_to_eat;
@@ -120,21 +98,29 @@ int	do_work(t_main *arg)
 	{
 		if (arg->philo_x[i].id % 2)
 		{
-			pthread_create(&arg->philo_x[i].philo, NULL, algo_loop, &arg->philo_x[i]);
+			pthread_create(&arg->philo_x[i].philo, NULL, &algo_loop, &(arg->philo_x[i]));
 			pthread_detach(arg->philo_x[i].philo);
 		}
 		i++;
 	}
-	usleep(100);
+	usleep(10);
 	i = 0;
 	while (i < arg->number_of_philo)
 	{
-		if (arg->philo_x[i].id % 2 == 0)
+ 		if (arg->philo_x[i].id % 2 == 0)
 		{
 			pthread_create(&arg->philo_x[i].philo, NULL, algo_loop, &arg->philo_x[i]);
 			pthread_detach(arg->philo_x[i].philo);
 		}
 		i++;
+	}
+	i = 0;
+	while (i < arg->number_of_philo)
+	{
+		if (arg->philo_x[i].died == 0) 
+			break;
+		if (++i == arg->number_of_philo)
+			i = 0;
 	}
 	return (0);
 }

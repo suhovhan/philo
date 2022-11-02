@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ergrigor < ergrigor@student.42yerevan.am > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:49:01 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/11/01 22:08:40 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/11/02 20:18:10 by ergrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 int	main(int ac, char **av)
-{
+{	
 	t_main		arg;
 	t_philo		*data;
 	unsigned	i;
@@ -44,10 +44,7 @@ int	main(int ac, char **av)
 	arg.philo_x = data;
 	set_mtx(&arg);
 	do_work(&arg);
-	if (is_died(data) == -1)
-	{
-		free(arg.philo_x);
-		free(arg.mtx);
-	}
+	free(arg.philo_x);
+	free(arg.mtx);
 	return (0);
 }

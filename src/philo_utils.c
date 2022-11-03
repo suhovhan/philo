@@ -27,27 +27,31 @@ unsigned long	ft_atoi(char *str)
 	return (res);
 }
 
-int	ft_msleep(int mili_sec)
+unsigned long long	gettime_milisec(void)
 {
-	int	sec;
-	int	micreo_sec;
-	struct timeval	fixed_time;
 	struct timeval	curent_time;
-	
-	gettimeofday(&fixed_time, NULL);
+	unsigned long long	tv_msec;
+
 	gettimeofday(&curent_time, NULL);
-	sec = mili_sec / 1000;
-	mili_sec %= 1000;
-	micreo_sec = mili_sec * 1000;
-	while (curent_time.tv_sec - fixed_time.tv_sec <= sec)
+	tv_msec = curent_time.tv_sec * 1000 + curent_time.tv_usec / 1000;
+	if (curent_time.tv_usec % 1000 >= 500)
+		tv_msec++;
+	return (tv_msec);
+}
+
+int	ft_msleep(int time)
+{
+	unsigned long long	fixed_tv_msec;
+	unsigned long long	curent_tv_msec;
+	unsigned long long	mili_sec;
+
+	mili_sec = time;
+	fixed_tv_msec = gettime_milisec();
+	curent_tv_msec = gettime_milisec();
+	while (curent_tv_msec - fixed_tv_msec < mili_sec)
 	{
-		while (curent_time.tv_usec - fixed_time.tv_usec <= micreo_sec)
-		{
-			usleep(10);
-			//printf("sec = %ld\tusec = %d\n", curent_time.tv_sec, curent_time.tv_usec);
-			gettimeofday(&curent_time, NULL);
-		}
-		gettimeofday(&curent_time, NULL);
+		usleep(100);
+		curent_tv_msec = gettime_milisec();
 	}
 	return (0);
 }

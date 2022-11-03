@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ergrigor < ergrigor@student.42yerevan.am > +#+  +:+       +#+        */
+/*   By: suhovhan < suhovhan@student.42yerevan.am > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:48:35 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/11/02 21:12:51 by ergrigor         ###   ########.fr       */
+/*   Updated: 2022/11/02 21:12:51 by suhovhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,33 +52,28 @@ int	set_mtx(t_main	*arg)
 void	*algo_loop(void *head)
 {
 	t_philo 		*data;
-	struct			timeval	curent_time;
-	unsigned 		hungry_time;
-	unsigned long	contenue_time;
+	unsigned long long	contenue_time;
+	unsigned long long	hungry_time;
 
 	data = head;
-	contenue_time = 0;
-	gettimeofday(&curent_time, NULL);
-	hungry_time = curent_time.tv_usec / 1000;
+	last_eat_time = gettime_milisec();
+	contenue_time = gettime_milisec();
 	data->died = -1;
 	while (1)
 	{
 		pthread_mutex_lock(data->left);
-		printf("%lu %u has taken a left fork!\n", contenue_time, data->id);
+		printf("%llu %u has taken a left fork!🍽\n", contenue_time, data->id);
 		pthread_mutex_lock(data->right);
-		printf("%lu %u has taken a right fork!\n", contenue_time, data->id);
-		printf("%lu %u is eating!\n", contenue_time, data->id);
+		printf("%llu %u has taken a right fork!🍽\n", contenue_time, data->id);
+		printf("%llu %u is eating!🍝\n", contenue_time, data->id);
 		ft_msleep(data->time_to_eat);
-		contenue_time += data->time_to_eat;
-		gettimeofday(&curent_time, NULL);
-		hungry_time = curent_time.tv_usec / 1000;
+		contenue_time = gettime_milisec();
 		pthread_mutex_unlock(data->left);
 		pthread_mutex_unlock(data->right);
-		printf("%lu %u fall a sleep!\n", contenue_time, data->id);
+		printf("%llu %u fall a sleep!🛌\n", contenue_time, data->id);
 		ft_msleep(data->time_to_sleep);
-		contenue_time += data->time_to_sleep;
-		gettimeofday(&curent_time, NULL);
-		printf("%lu %u is thinking\n", contenue_time, data->id);
+		contenue_time = gettime_milisec();
+		printf("%llu %u is thinking🤔\n", contenue_time, data->id);
 	}
 	return (0);
 }

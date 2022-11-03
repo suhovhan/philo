@@ -25,6 +25,7 @@ int				checker_is_nall(t_main arg, int ac);
 int				checker(int ac, char **av);
 int				error_and_exit();
 int				do_work(t_main *arg);
+unsigned long long	gettime_milisec(void);
 int				ft_msleep(int mili_sec);
 int				set_mtx(t_main	*arg);
 unsigned long	ft_atoi(char *str);

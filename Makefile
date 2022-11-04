@@ -28,7 +28,7 @@ clean:
 
 fclean: clean
 	$(RM)  $(NAME)
-	$(RMRF) $(LIBCACH)
+	# $(RMRF) $(LIBCACH)
 
 re: fclean all
 

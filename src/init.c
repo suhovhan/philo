@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhovhan < suhovhan@student.42yerevan.am > +#+  +:+       +#+        */
+/*   By: ergrigor < ergrigor@student.42yerevan.am > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:48:35 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/11/02 21:12:51 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/11/04 03:00:30 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_main args_to_struct(char **av)
+t_main	args_to_struct(char **av)
 {
-	t_main arg;
+	t_main	arg;
 
 	arg.number_of_philo = (unsigned)ft_atoi(av[1]);
 	arg.time_to_die = ft_atoi(av[2]);
@@ -51,37 +51,59 @@ int	set_mtx(t_main	*arg)
 
 void	*algo_loop(void *head)
 {
-	t_philo 		*data;
+	t_philo				*data;
 	unsigned long long	contenue_time;
-	unsigned long long	hungry_time;
 
 	data = head;
-	last_eat_time = gettime_milisec();
+	data->last_eat_time = gettime_milisec();
 	contenue_time = gettime_milisec();
-	data->died = -1;
 	while (1)
 	{
 		pthread_mutex_lock(data->left);
 		printf("%llu %u has taken a left fork!🍽\n", contenue_time, data->id);
 		pthread_mutex_lock(data->right);
 		printf("%llu %u has taken a right fork!🍽\n", contenue_time, data->id);
+		data->last_eat_time = gettime_milisec();
 		printf("%llu %u is eating!🍝\n", contenue_time, data->id);
-		ft_msleep(data->time_to_eat);
+		usleep(data->time_to_eat * 1000);
 		contenue_time = gettime_milisec();
 		pthread_mutex_unlock(data->left);
 		pthread_mutex_unlock(data->right);
 		printf("%llu %u fall a sleep!🛌\n", contenue_time, data->id);
-		ft_msleep(data->time_to_sleep);
+		usleep(data->time_to_sleep * 1000);
 		contenue_time = gettime_milisec();
 		printf("%llu %u is thinking🤔\n", contenue_time, data->id);
 	}
 	return (0);
 }
 
+int	simulation_loop(t_main **head)
+{
+	t_main	*arg;
+	unsigned	i;
+
+	arg = *head;
+	while (1)
+	{
+		i = 0;
+		while (i < arg->number_of_philo)
+		{
+			if (gettime_milisec() - arg->philo_x[i].last_eat_time >= arg->time_to_die)
+			{
+				printf("%llu %u is died!⚰️\n", arg->philo_x[i].last_eat_time, arg->philo_x[i].id);
+				return (-1);
+			}
+			i++;
+		}
+	}
+	return (0);
+}
+
 int	do_work(t_main *arg)
 {
-	unsigned	i = 0;
+	unsigned int	i;
 
+	i = 0;
 	while (i < arg->number_of_philo)
 	{
 		if (pthread_mutex_init(&arg->mtx[i], NULL) != 0)
@@ -91,31 +113,24 @@ int	do_work(t_main *arg)
 	i = 0;
 	while (i < arg->number_of_philo)
 	{
-		if (arg->philo_x[i].id % 2)
+		if (arg->philo_x[i].id % 2 != 0)
 		{
 			pthread_create(&arg->philo_x[i].philo, NULL, &algo_loop, &(arg->philo_x[i]));
 			pthread_detach(arg->philo_x[i].philo);
 		}
 		i++;
 	}
-	usleep(10);
+	usleep(50);
 	i = 0;
 	while (i < arg->number_of_philo)
 	{
- 		if (arg->philo_x[i].id % 2 == 0)
+		if (arg->philo_x[i].id % 2 == 0)
 		{
-			pthread_create(&arg->philo_x[i].philo, NULL, algo_loop, &arg->philo_x[i]);
+			pthread_create(&arg->philo_x[i].philo, NULL, &algo_loop, &(arg->philo_x[i]));
 			pthread_detach(arg->philo_x[i].philo);
 		}
 		i++;
 	}
-	i = 0;
-	while (i < arg->number_of_philo)
-	{
-		if (arg->philo_x[i].died == 0) 
-			break;
-		if (++i == arg->number_of_philo)
-			i = 0;
-	}
+	simulation_loop(&arg);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ergrigor < ergrigor@student.42yerevan.am > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:48:48 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/11/02 19:11:38 by ergrigor         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:46:47 by ergrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_philo
 	unsigned long	time_to_eat;
 	unsigned long	time_to_sleep;
 	unsigned long	count_time_to_eat;
+	unsigned long long	last_eat_time;
 	pthread_t		philo;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;

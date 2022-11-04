@@ -6,7 +6,7 @@
 /*   By: ergrigor < ergrigor@student.42yerevan.am > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:12:22 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/11/02 21:31:44 by ergrigor         ###   ########.fr       */
+/*   Updated: 2022/11/04 01:38:06 by ergrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ unsigned long long	gettime_milisec(void)
 
 	gettimeofday(&curent_time, NULL);
 	tv_msec = curent_time.tv_sec * 1000 + curent_time.tv_usec / 1000;
-	if (curent_time.tv_usec % 1000 >= 500)
-		tv_msec++;
+	// if (curent_time.tv_usec % 1000 >= 500)
+	// 	tv_msec++;
 	return (tv_msec);
 }
 
@@ -50,7 +50,7 @@ int	ft_msleep(int time)
 	curent_tv_msec = gettime_milisec();
 	while (curent_tv_msec - fixed_tv_msec < mili_sec)
 	{
-		usleep(100);
+		usleep(10);
 		curent_tv_msec = gettime_milisec();
 	}
 	return (0);

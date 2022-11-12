@@ -6,7 +6,7 @@
 /*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 15:12:22 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/11/12 06:08:27 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/11/12 07:12:57 by suhovhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ unsigned long	ft_atoi(char *str)
 
 unsigned long long	gettime_milisec(void)
 {
-	struct timeval	curent_time;
+	struct timeval		curent_time;
 	unsigned long long	tv_msec;
 
 	gettimeofday(&curent_time, NULL);
 	tv_msec = curent_time.tv_sec * 1000 + curent_time.tv_usec / 1000;
-	// if (curent_time.tv_usec % 1000 >= 500)
-	// 	tv_msec++;
 	return (tv_msec);
 }
 

@@ -6,7 +6,7 @@
 /*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:48:55 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/10/26 14:48:56 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/11/12 12:03:15 by suhovhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,15 @@ int	check_wrong_arguments(char **av)
 int	checker(int ac, char **av)
 {
 	if (!check_ac(ac))
+	{
+		write(2, "Error: something is wrong!\n", 27);
 		return (-1);
+	}
 	if (!check_wrong_arguments(av))
+	{
+		write(2, "Error: something is wrong!\n", 27);
 		return (-1);
+	}
 	return (0);
 }
 
@@ -52,6 +58,9 @@ int	checker_is_nall(t_main arg, int ac)
 		|| arg.time_to_sleep <= 0)
 		return (-1);
 	if (ac == 6 && arg.count_time_to_eat <= 0)
+	{
+		write(2, "Error: something is wrong!\n", 27);
 		return (-1);
+	}
 	return (0);
 }

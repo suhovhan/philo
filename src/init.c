@@ -6,7 +6,7 @@
 /*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:48:35 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/11/12 05:25:14 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/11/12 06:17:41 by suhovhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	*algo_loop(void *head)
 	data = head;
 	contenue_time = gettime_milisec();
 	data->last_eat_time = gettime_milisec();
+	printf("%llu\n", data->last_eat_time);
     data->finished_flag = 0;
 	if (data->id % 2 == 0)
 		usleep(50);
@@ -132,8 +133,7 @@ int	do_work(t_main *arg)
 	i = 0;
 	while (i < arg->number_of_philo)
 	{
-		if (pthread_mutex_init(&arg->mtx[i], NULL) != 0)
-			return (-1);
+		pthread_mutex_init(&arg->mtx[i], NULL);
 		i++;
 	}
 	i = 0;
@@ -143,6 +143,13 @@ int	do_work(t_main *arg)
 		pthread_detach(arg->philo_x[i].philo);
 		i++;
 	}
+	usleep(100);
 	simulation_loop(&arg);
+	i = 0;
+	while (i < arg->number_of_philo)
+	{
+		pthread_mutex_destroy(&arg->mtx[i]);
+		i++;
+	}
 	return (0);
 }

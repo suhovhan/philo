@@ -6,7 +6,7 @@
 /*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:48:51 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/11/11 23:55:18 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/11/12 06:08:47 by suhovhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include <stdarg.h>
 #include <sys/time.h>
 
+void			ft_putstr(char *str);
+void			print_header();
 int				check_ac(int ac);
 int				check_wrong_arguments(char **av);
 int				checker_is_nall(t_main arg, int ac);

@@ -12,23 +12,31 @@ RMRF = rm -rf
 
 LIBCACH = ~/Library/Caches/
 
+COLOUR_GREEN=\033[0;32m
+COLOUR_RED=\033[0;31m
+COLOUR_NEW=\033[0;36m
+COLOUR_END=\033[0m
+
 $(OBJS_DIR)/%.o: ./src/%.c | $(OBJS_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	@echo "$(COLOUR_GREEN)COMPILED😍$(COLOUR_END)"
 
 $(OBJS_DIR):
-	$(MK) $(OBJS_DIR)
+	@$(MK) $(OBJS_DIR)
 
 clean:
-	$(RMRF)	$(OBJS_DIR)
+	@$(RMRF)	$(OBJS_DIR)
+	@echo "$(COLOUR_RED)CLEANED🤨$(COLOUR_END)"
 
 fclean: clean
-	$(RM)  $(NAME)
-	$(RMRF) $(LIBCACH)
+	@$(RM)  $(NAME)
+	@$(RMRF) $(LIBCACH)
+	@echo "$(COLOUR_NEW)THANK YOU😘$(COLOUR_END)"
 
 re: fclean all
 

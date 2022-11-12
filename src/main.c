@@ -6,7 +6,7 @@
 /*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:49:01 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/11/12 00:32:19 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/11/12 06:11:34 by suhovhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int ac, char **av)
 	unsigned	i;
 
 	i = 0;
+	print_header();
 	if (checker(ac, av))
 	{
 		write(2, "Error: something is wrong!\n", 27);

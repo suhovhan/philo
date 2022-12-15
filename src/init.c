@@ -6,7 +6,7 @@
 /*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:48:35 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/11/12 12:10:31 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/12/14 17:34:50 by suhovhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	*routine(void *head)
 	data->count_eating_time = 0;
 	data->contenue_time = gettime_milisec();
 	data->last_eat_time = gettime_milisec();
-	printf("%llu\n", data->last_eat_time);
 	data->finished_flag = 0;
 	if (data->id % 2 == 0)
 		usleep(50);

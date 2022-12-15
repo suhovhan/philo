@@ -6,7 +6,7 @@
 /*   By: suhovhan <suhovhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 11:34:27 by suhovhan          #+#    #+#             */
-/*   Updated: 2022/11/12 13:26:07 by suhovhan         ###   ########.fr       */
+/*   Updated: 2022/11/14 22:37:25 by suhovhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_death(t_main **head)
 		&& (*head)->philo_x[(*head)->i].finished_flag == 0)
 	{
 		printf("%llu %u is died\n", \
-				(*head)->philo_x[(*head)->i].last_eat_time, \
+				gettime_milisec(), \
 				(*head)->philo_x[(*head)->i].id);
 		return (-1);
 	}
